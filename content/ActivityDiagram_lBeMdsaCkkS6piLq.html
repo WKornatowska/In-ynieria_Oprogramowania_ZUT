@@ -1,0 +1,353 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Activity Diagram - Wyszukiwanie pliku po nazwie</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Activity Diagram - Wyszukiwanie pliku po nazwie		</span>
+<a onclick="javascript: showVpLink('Projekt_IO.vpp://diagram/lBeMdsaCkkS6piLq', 'Wyszukiwanie pliku po nazwie\nProjekt_IO.vpp://diagram/lBeMdsaCkkS6piLq', 'Wyszukiwanie pliku po nazwie', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|463.0|560.0|161.0|80.0|Activity_QAacdsaCkkS6piUr.html|Activity_QAacdsaCkkS6piUr.html|gAacdsaCkkS6piUq" id="optiongAacdsaCkkS6piUq">Wyswietl znalezione pliki : Activity</option>
+<option value="shape|494.0|423.0|100.0|80.0|Activity_ReycdsaCkkS6piUP.html|Activity_ReycdsaCkkS6piUP.html|ReycdsaCkkS6piUO" id="optionReycdsaCkkS6piUO">Wyszukaj pliki : Activity</option>
+<option value="shape|352.0|6.0|329.0|15.0|ActivityPartition_qbvcdsaCkkS6piac.html|ActivityPartition_qbvcdsaCkkS6piac.html|qbvcdsaCkkS6piab" id="optionqbvcdsaCkkS6piab">System : Activity Partition</option>
+<option value="shape|40.0|370.0|218.0|80.0|Activity_WKbsdsaCkkS6piRO.html|Activity_WKbsdsaCkkS6piRO.html|WKbsdsaCkkS6piRN" id="optionWKbsdsaCkkS6piRN">Wpisz nazwe szukanego pliku : Activity</option>
+<option value="shape|60.0|210.0|100.0|80.0|Activity__OysdsaCkkS6piQW.html|Activity__OysdsaCkkS6piQW.html|.OysdsaCkkS6piQV" id="option.OysdsaCkkS6piQV">Kliknij przycisk Przeglądaj zawartość grupy : Activity</option>
+<option value="shape|6.0|6.0|346.0|15.0|ActivityPartition_WrvcdsaCkkS6piaW.html|ActivityPartition_WrvcdsaCkkS6piaW.html|WrvcdsaCkkS6piaV" id="optionWrvcdsaCkkS6piaV">Administator&emsp; : Activity Partition</option>
+<option value="shape|512.0|218.0|100.0|80.0|Activity__3_MdsaCkkS6piOB.html|Activity__3_MdsaCkkS6piOB.html|_3_MdsaCkkS6piOA" id="option_3_MdsaCkkS6piOA">Wyświetl pliki : Activity</option>
+<option value="shape|107.0|51.0|40.0|20.0|InitialNode_rXfMdsaCkkS6piNz.html|InitialNode_rXfMdsaCkkS6piNz.html|rXfMdsaCkkS6piNy" id="optionrXfMdsaCkkS6piNy">Unnamed Initial Node : Initial Node</option>
+<option value="shape|6.0|6.0|675.0|657.0|ActivitySwimlane2_VLvcdsaCkkS6piaS.html|ActivitySwimlane2_VLvcdsaCkkS6piaS.html|lLvcdsaCkkS6piaR" id="optionlLvcdsaCkkS6piaR">Swimlane2 : Swimlane</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Wyszukiwanie_pliku_po_nazwie.png" usemap="#diagram_map" class="Image" width="689" height="671"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="120.0, 71.0, 120.0, 210.0, 134.0, 210.0, 134.0, 71.0" coords2="120.0, 71.0, 120.0, 210.0, 134.0, 210.0, 134.0, 71.0" shape="poly" alt=":Control Flow" id="areadiagram_map_DuysdsaCkkS6piQc" href="ControlFlow_KuysdsaCkkS6piQb.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="532.0, 211.0, 160.0, 211.97382, 160.0, 211.97382, 160.0, 225.97382, 160.0, 225.97382, 512.0, 225.05235, 512.0, 225.05235, 512.0, 218.0, 532.0, 218.0, 532.0, 211.0" coords2="532.0, 211.0, 160.0, 211.97382, 160.0, 211.97382, 160.0, 225.97382, 160.0, 225.97382, 512.0, 225.05235, 512.0, 225.05235, 512.0, 218.0, 532.0, 218.0, 532.0, 211.0" shape="poly" alt=":Control Flow" id="areadiagram_map_ZRocdsaCkkS6piST" href="ControlFlow_BRocdsaCkkS6piSS.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="512.0, 289.69473, 240.0, 367.0, 240.85715, 370.0, 258.0, 370.0, 258.0, 377.00705, 258.0, 377.00705, 528.0, 300.0, 527.5714, 298.0, 512.0, 298.0, 512.0, 289.69473" coords2="512.0, 289.69473, 240.0, 367.0, 240.85715, 370.0, 258.0, 370.0, 258.0, 377.00705, 258.0, 377.00705, 528.0, 300.0, 527.5714, 298.0, 512.0, 298.0, 512.0, 289.69473" shape="poly" alt=":Control Flow" id="areadiagram_map_obUcdsaCkkS6piS." href="ControlFlow__rUcdsaCkkS6piS9.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="258.0, 421.0, 258.0, 435.0, 494.0, 435.0, 494.0, 423.0, 507.0, 423.0, 507.0, 421.0" coords2="258.0, 421.0, 258.0, 435.0, 494.0, 435.0, 494.0, 423.0, 507.0, 423.0, 507.0, 421.0" shape="poly" alt=":Control Flow" id="areadiagram_map_L.ycdsaCkkS6piUV" href="ControlFlow_m_ycdsaCkkS6piUU.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="532.0, 503.0, 532.0, 560.0, 546.0, 560.0, 546.0, 503.0" coords2="532.0, 503.0, 532.0, 560.0, 546.0, 560.0, 546.0, 503.0" shape="poly" alt=":Control Flow" id="areadiagram_map_SgacdsaCkkS6piUx" href="ControlFlow_rAacdsaCkkS6piUw.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="463, 560, 624, 640" coords2="463, 560, 624, 640" shape="rect" alt="Wyswietl znalezione pliki:Activity" id="areadiagram_map_gAacdsaCkkS6piUq" href="Activity_QAacdsaCkkS6piUr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="494, 423, 594, 503" coords2="494, 423, 594, 503" shape="rect" alt="Wyszukaj pliki:Activity" id="areadiagram_map_ReycdsaCkkS6piUO" href="Activity_ReycdsaCkkS6piUP.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="352, 6, 681, 21" coords2="352, 6, 681, 21" shape="rect" alt="System:Activity Partition" id="areadiagram_map_qbvcdsaCkkS6piab" href="ActivityPartition_qbvcdsaCkkS6piac.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="40, 370, 258, 450" coords2="40, 370, 258, 450" shape="rect" alt="Wpisz nazwe szukanego pliku:Activity" id="areadiagram_map_WKbsdsaCkkS6piRN" href="Activity_WKbsdsaCkkS6piRO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="60, 210, 160, 290" coords2="60, 210, 160, 290" shape="rect" alt="Kliknij przycisk Przeglądaj zawartość grupy:Activity" id="areadiagram_map_.OysdsaCkkS6piQV" href="Activity__OysdsaCkkS6piQW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="6, 6, 352, 21" coords2="6, 6, 352, 21" shape="rect" alt="Administator&emsp;:Activity Partition" id="areadiagram_map_WrvcdsaCkkS6piaV" href="ActivityPartition_WrvcdsaCkkS6piaW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="512, 218, 612, 298" coords2="512, 218, 612, 298" shape="rect" alt="Wyświetl pliki:Activity" id="areadiagram_map__3_MdsaCkkS6piOA" href="Activity__3_MdsaCkkS6piOB.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="107, 51, 147, 71" coords2="107, 51, 147, 71" shape="rect" alt=":Initial Node" id="areadiagram_map_rXfMdsaCkkS6piNy" href="InitialNode_rXfMdsaCkkS6piNz.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="6, 6, 681, 663" coords2="6, 6, 681, 663" shape="rect" alt="Swimlane2:Swimlane" id="areadiagram_map_lLvcdsaCkkS6piaR" href="ActivitySwimlane2_VLvcdsaCkkS6piaS.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_QAacdsaCkkS6piUr.html" class="ItemLink">Wyswietl znalezione pliki : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_ReycdsaCkkS6piUP.html" class="ItemLink">Wyszukaj pliki : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityPartition.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityPartition.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityPartition_qbvcdsaCkkS6piac.html" class="ItemLink">System : Activity Partition</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_WKbsdsaCkkS6piRO.html" class="ItemLink">Wpisz nazwe szukanego pliku : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity__OysdsaCkkS6piQW.html" class="ItemLink">Kliknij przycisk Przeglądaj zawartość grupy : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityPartition.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityPartition.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityPartition_WrvcdsaCkkS6piaW.html" class="ItemLink">Administator&emsp; : Activity Partition</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity__3_MdsaCkkS6piOB.html" class="ItemLink">Wyświetl pliki : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/InitialNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/InitialNode.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="InitialNode_rXfMdsaCkkS6piNz.html" class="ItemLink">N/A : Initial Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityVerticalSwimlane.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityVerticalSwimlane.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivitySwimlane2_VLvcdsaCkkS6piaS.html" class="ItemLink">Swimlane2 : Swimlane</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+</body>
+</html>

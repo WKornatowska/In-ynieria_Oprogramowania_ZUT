@@ -1,0 +1,1108 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Podsumowanie - Use Case Diagram</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p>
+<a href="Model_nZYiJEaFYFAUAw2n.html" class="PageParentTitle">Analysis Model : Model</a>	</p>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Use Case Diagram - Podsumowanie - Use Case Diagram		</span>
+<a onclick="javascript: showVpLink('Projekt_IO.vpp://diagram/s04gUkaGAqAQZgir', 'Podsumowanie - Use Case Diagram\nProjekt_IO.vpp://diagram/s04gUkaGAqAQZgir', 'Podsumowanie - Use Case Diagram', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|193.0|822.0|420.0|418.0|System_TxN6skaFYFAUAwrv.html|System_TxN6skaFYFAUAwrv.html|TxN6skaFYFAUAwru" id="optionTxN6skaFYFAUAwru">Baza użytkowników : System</option>
+<option value="shape|854.0|846.0|329.0|362.0|System_QzF6skaFYFAUAwrl.html|System_QzF6skaFYFAUAwrl.html|gzF6skaFYFAUAwrk" id="optiongzF6skaFYFAUAwrk">Logowanie/rejestracja : System</option>
+<option value="shape|186.0|72.0|530.0|566.0|System_Z7W6skaFYFAUAwq4.html|System_Z7W6skaFYFAUAwq4.html|x7W6skaFYFAUAwq3" id="optionx7W6skaFYFAUAwq3">Zarządzanie grupą : System</option>
+<option value="shape|822.0|22.0|840.0|721.0|System_8H_6skaFYFAUAwrN.html|System_8H_6skaFYFAUAwrN.html|8H.6skaFYFAUAwrM" id="option8H.6skaFYFAUAwrM">Kalendarz : System</option>
+<option value="shape|29.0|280.0|30.0|60.0|Actor_O4LgUkaGAqAQZguh.html|Actor_O4LgUkaGAqAQZguh.html|kELgUkaGAqAQZgui" id="optionkELgUkaGAqAQZgui">Administrator : Actor</option>
+<option value="shape|721.0|963.0|30.0|60.0|Actor_wdjYUkaGAqAQZg47.html|Actor_wdjYUkaGAqAQZg47.html|ddjYUkaGAqAQZg48" id="optionddjYUkaGAqAQZg48">Użytkownik : Actor</option>
+<option value="shape|773.0|292.0|30.0|60.0|Actor_lGTYUkaGAqAQZg5O.html|Actor_lGTYUkaGAqAQZg5O.html|2mTYUkaGAqAQZg5P" id="option2mTYUkaGAqAQZg5P">Współpracownik : Actor</option>
+<option value="shape|238.0|937.0|212.0|45.0|UseCase_W3bgUkaGAqAQZgvF.html|UseCase_W3bgUkaGAqAQZgvF.html|sPbgUkaGAqAQZgvP" id="optionsPbgUkaGAqAQZgvP">Edycja profilu : Use Case</option>
+<option value="shape|1229.0|602.0|186.0|40.0|UseCase_cQHgUkaGAqAQZgwI.html|UseCase_cQHgUkaGAqAQZgwI.html|gwHgUkaGAqAQZgwS" id="optiongwHgUkaGAqAQZgwS">Kontrola realizacji zadań/celów : Use Case</option>
+<option value="shape|902.0|941.0|195.0|63.0|UseCase_1xHgUkaGAqAQZgwo.html|UseCase_1xHgUkaGAqAQZgwo.html|BJHgUkaGAqAQZgwy" id="optionBJHgUkaGAqAQZgwy">Logowanie   użytkownika : Use Case</option>
+<option value="shape|1022.0|494.0|186.0|54.0|UseCase__sXgUkaGAqAQZgxM.html|UseCase__sXgUkaGAqAQZgxM.html|icXgUkaGAqAQZgxW" id="optionicXgUkaGAqAQZgxW">Planowanie zadań/celów : Use Case</option>
+<option value="shape|268.0|441.0|160.0|40.0|UseCase_cdXgUkaGAqAQZgxx.html|UseCase_cdXgUkaGAqAQZgxx.html|Y9XgUkaGAqAQZgx7" id="optionY9XgUkaGAqAQZgx7">Poszukiwanie pracownika : Use Case</option>
+<option value="shape|276.0|247.0|196.0|40.0|UseCase_RcPgUkaGAqAQZgyt.html|UseCase_RcPgUkaGAqAQZgyt.html|m8PgUkaGAqAQZgy3" id="optionm8PgUkaGAqAQZgy3">Przydzielanie “punktów zaufania” : Use Case</option>
+<option value="shape|916.0|1080.0|203.0|66.0|UseCase_byvgUkaGAqAQZgzf.html|UseCase_byvgUkaGAqAQZgzf.html|lKvgUkaGAqAQZgzp" id="optionlKvgUkaGAqAQZgzp">Rejestracja   użytkownika : Use Case</option>
+<option value="shape|845.0|619.0|270.0|40.0|UseCase_IR1YUkaGAqAQZg0w.html|UseCase_IR1YUkaGAqAQZg0w.html|wx1YUkaGAqAQZg06" id="optionwx1YUkaGAqAQZg06">Rezerwacja spotkań z wybranym użytkownikiem : Use Case</option>
+<option value="shape|233.0|1030.0|239.0|40.0|UseCase_SHtYUkaGAqAQZg1o.html|UseCase_SHtYUkaGAqAQZg1o.html|kntYUkaGAqAQZg1y" id="optionkntYUkaGAqAQZg1y">Tworzenie głosowej konwersacji grupowej : Use Case</option>
+<option value="shape|238.0|1101.0|242.0|54.0|UseCase_oGdYUkaGAqAQZg2F.html|UseCase_oGdYUkaGAqAQZg2F.html|fGdYUkaGAqAQZg2P" id="optionfGdYUkaGAqAQZg2P">Tworzenie tekstowej konwersacji grupowej : Use Case</option>
+<option value="shape|1389.0|105.0|176.0|54.0|UseCase_pNdYUkaGAqAQZg2n.html|UseCase_pNdYUkaGAqAQZg2n.html|utdYUkaGAqAQZg2x" id="optionutdYUkaGAqAQZg2x">Tworzenie wydarzeń : Use Case</option>
+<option value="shape|247.0|863.0|210.0|46.0|UseCase__I9YUkaGAqAQZg3H.html|UseCase__I9YUkaGAqAQZg3H.html|fo9YUkaGAqAQZg3R" id="optionfo9YUkaGAqAQZg3R">udostępnianie plików : Use Case</option>
+<option value="shape|1409.0|213.0|186.0|40.0|UseCase_oB9YUkaGAqAQZg3k.html|UseCase_oB9YUkaGAqAQZg3k.html|XB9YUkaGAqAQZg3u" id="optionXB9YUkaGAqAQZg3u">Udostępnianie terminów urlopu : Use Case</option>
+<option value="shape|1375.0|317.0|184.0|54.0|UseCase_hYDYUkaGAqAQZg4B.html|UseCase_hYDYUkaGAqAQZg4B.html|K4DYUkaGAqAQZg4L" id="optionK4DYUkaGAqAQZg4L">Ustawianie dostępności : Use Case</option>
+<option value="shape|1164.0|371.0|154.0|40.0|UseCase_JpDYUkaGAqAQZg4e.html|UseCase_JpDYUkaGAqAQZg4e.html|uZDYUkaGAqAQZg4o" id="optionuZDYUkaGAqAQZg4o">Ustawianie przypomnień : Use Case</option>
+<option value="shape|479.0|324.0|214.0|40.0|UseCase_i7TYUkaGAqAQZg5g.html|UseCase_i7TYUkaGAqAQZg5g.html|IHTYUkaGAqAQZg5q" id="optionIHTYUkaGAqAQZg5q">Wyszukiwanie wątków tematycznych : Use Case</option>
+<option value="shape|299.0|340.0|124.0|40.0|UseCase_8HzYUkaGAqAQZg6K.html|UseCase_8HzYUkaGAqAQZg6K.html|onzYUkaGAqAQZg6U" id="optiononzYUkaGAqAQZg6U">Zwołanie zebrania : Use Case</option>
+<option value="shape|214.0|127.0|294.0|54.0|UseCase_tJpcUkaGAqAQZhF9.html|UseCase_tJpcUkaGAqAQZhF9.html|5ppcUkaGAqAQZhGH" id="option5ppcUkaGAqAQZhGH">Tworzenie forum tematycznego : Use Case</option>
+<option value="shape|966.0|202.0|339.0|115.0|UseCase_FO5WUkaGAqAQZhSC.html|UseCase_FO5WUkaGAqAQZhSC.html|Gu5WUkaGAqAQZhSM" id="optionGu5WUkaGAqAQZhSM">Przeglądanie kalendarza : Use Case</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Podsumowanie_Use_Case_Diagram.png" usemap="#diagram_map" class="Image" width="1666" height="1244"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="751.0, 970.0, 751.0, 984.0, 902.0, 984.0, 902.0, 970.0" coords2="751.0, 970.0, 751.0, 984.0, 902.0, 984.0, 902.0, 970.0" shape="poly" alt=":Association" id="areadiagram_map_nt9uUkaGAqAQZhff" href="Association_ht9uUkaGAqAQZhfa.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="457.0, 902.1741, 457.0, 909.0, 419.01587, 909.0, 721.0, 969.2057, 721.0, 969.2057, 721.0, 963.0, 731.1429, 963.0, 732.0, 957.0, 457.0, 902.1741" coords2="457.0, 902.1741, 457.0, 909.0, 419.01587, 909.0, 721.0, 969.2057, 721.0, 969.2057, 721.0, 963.0, 731.1429, 963.0, 732.0, 957.0, 457.0, 902.1741" shape="poly" alt=":Association" id="areadiagram_map_P3weUkaGAqAQZhik" href="Association_p3weUkaGAqAQZhif.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="766.0, 1028.0, 762.0, 1042.0, 916.0, 1086.684, 916.0, 1080.0, 944.2857, 1080.0, 766.0, 1028.0" coords2="766.0, 1028.0, 762.0, 1042.0, 916.0, 1086.684, 916.0, 1080.0, 944.2857, 1080.0, 766.0, 1028.0" shape="poly" alt=":Association" id="areadiagram_map_A9DuUkaGAqAQZhf0" href="Association_FdDuUkaGAqAQZhfv.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="450.0, 962.0, 450.0, 976.0, 721.0, 976.0, 721.0, 963.0, 731.0, 963.0, 731.0, 962.0" coords2="450.0, 962.0, 450.0, 976.0, 721.0, 976.0, 721.0, 963.0, 731.0, 963.0, 731.0, 962.0" shape="poly" alt=":Association" id="areadiagram_map_ePQeUkaGAqAQZhiR" href="Association_4PQeUkaGAqAQZhiM.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="705.0, 1028.0, 448.53946, 1101.0, 480.0, 1101.0, 480.0, 1107.1428, 480.0, 1107.1428, 708.0, 1042.0, 705.0, 1028.0" coords2="705.0, 1028.0, 448.53946, 1101.0, 480.0, 1101.0, 480.0, 1107.1428, 480.0, 1107.1428, 708.0, 1042.0, 705.0, 1028.0" shape="poly" alt=":Association" id="areadiagram_map_yNAeUkaGAqAQZhhr" href="Association_v1AeUkaGAqAQZhhm.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="396.0, 1025.0, 396.0, 1030.0, 472.0, 1030.0, 472.0, 1039.0, 708.0, 1039.0, 708.0, 1025.0" coords2="396.0, 1025.0, 396.0, 1030.0, 472.0, 1030.0, 472.0, 1039.0, 708.0, 1039.0, 708.0, 1025.0" shape="poly" alt=":Association" id="areadiagram_map_rLgeUkaGAqAQZhh." href="Association_uLgeUkaGAqAQZhh5.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="793.0, 285.0, 793.0, 292.0, 803.0, 292.0, 803.0, 299.0, 966.0, 299.0, 966.0, 285.0" coords2="793.0, 285.0, 793.0, 292.0, 803.0, 292.0, 803.0, 299.0, 966.0, 299.0, 966.0, 285.0" shape="poly" alt=":Association" id="areadiagram_map_w.7uUkaGAqAQZhgk" href="Association_te7uUkaGAqAQZhgf.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="693.0, 332.0, 693.0, 346.0, 773.0, 346.0, 773.0, 332.0" coords2="693.0, 332.0, 693.0, 346.0, 773.0, 346.0, 773.0, 332.0" shape="poly" alt=":Association" id="areadiagram_map_MULuUkaGAqAQZhgN" href="Association_bkLuUkaGAqAQZhgI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="508.0, 147.0, 508.0, 181.0, 501.0, 181.0, 501.0, 324.0, 515.0, 324.0, 515.0, 147.0" coords2="508.0, 147.0, 508.0, 181.0, 501.0, 181.0, 501.0, 324.0, 515.0, 324.0, 515.0, 147.0" shape="poly" alt=":Extend" id="areadiagram_map_WlMcUkaGAqAQZhFd" href="Extend_QlMcUkaGAqAQZhFb.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="214.0, 170.24211, 46.0, 279.0, 46.727272, 280.0, 59.0, 280.0, 59.0, 286.76315, 59.0, 286.76315, 222.37398, 181.0, 214.0, 181.0, 214.0, 170.24211" coords2="214.0, 170.24211, 46.0, 279.0, 46.727272, 280.0, 59.0, 280.0, 59.0, 286.76315, 59.0, 286.76315, 222.37398, 181.0, 214.0, 181.0, 214.0, 170.24211" shape="poly" alt=":Association" id="areadiagram_map_CtHGUkaGAqAQZhLx" href="Association_7NHGUkaGAqAQZhLs.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="81.0, 345.0, 76.0, 358.0, 268.0, 447.71964, 268.0, 441.0, 286.44, 441.0, 81.0, 345.0" coords2="81.0, 345.0, 76.0, 358.0, 268.0, 447.71964, 268.0, 441.0, 286.44, 441.0, 81.0, 345.0" shape="poly" alt=":Association" id="areadiagram_map_VM3GUkaGAqAQZhMU" href="Association_iM3GUkaGAqAQZhMP.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="49.0, 273.0, 49.0, 280.0, 59.0, 280.0, 59.0, 287.0, 276.0, 287.0, 276.0, 273.0" coords2="49.0, 273.0, 49.0, 280.0, 59.0, 280.0, 59.0, 287.0, 276.0, 287.0, 276.0, 273.0" shape="poly" alt=":Association" id="areadiagram_map_YIPmUkaGAqAQZhPu" href="Association_dwPmUkaGAqAQZhPp.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="78.0, 349.0, 78.0, 363.0, 299.0, 363.0, 299.0, 349.0" coords2="78.0, 349.0, 78.0, 363.0, 299.0, 363.0, 299.0, 349.0" shape="poly" alt=":Association" id="areadiagram_map_8b7mUkaGAqAQZhPD" href="Association_zr7mUkaGAqAQZhO_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1208.0, 525.4595, 1208.0, 548.0, 1200.88, 548.0, 1229.0, 624.0, 1229.0, 602.0, 1236.0396, 602.0, 1208.0, 525.4595" coords2="1208.0, 525.4595, 1208.0, 548.0, 1200.88, 548.0, 1229.0, 624.0, 1229.0, 602.0, 1236.0396, 602.0, 1208.0, 525.4595" shape="poly" alt=":Include" id="areadiagram_map_HnPzUkaGAqAQZgpR" href="Include_BnPzUkaGAqAQZgpQ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="959.0, 307.0, 959.0, 619.0, 973.0, 619.0, 973.0, 317.0, 966.0, 317.0, 966.0, 307.0" coords2="959.0, 307.0, 959.0, 619.0, 973.0, 619.0, 973.0, 317.0, 966.0, 317.0, 966.0, 307.0" shape="poly" alt=":Extend" id="areadiagram_map_hvS2UkaGAqAQZhVA" href="Extend_IvS2UkaGAqAQZhU_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1389.0, 150.76074, 1284.6, 202.0, 1305.0, 202.0, 1305.0, 207.44171, 1403.7, 159.0, 1389.0, 159.0, 1389.0, 150.76074" coords2="1389.0, 150.76074, 1284.6, 202.0, 1305.0, 202.0, 1305.0, 207.44171, 1403.7, 159.0, 1389.0, 159.0, 1389.0, 150.76074" shape="poly" alt=":Extend" id="areadiagram_map_RhvWUkaGAqAQZhS9" href="Extend_0hvWUkaGAqAQZhS7.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1535.0, 253.0, 1535.0, 317.0, 1549.0, 317.0, 1549.0, 253.0" coords2="1535.0, 253.0, 1535.0, 317.0, 1549.0, 317.0, 1549.0, 253.0" shape="poly" alt=":Include" id="areadiagram_map_MOw2UkaGAqAQZhTu" href="Include_L2w2UkaGAqAQZhTt.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1305.0, 246.0, 1305.0, 260.0, 1511.0, 260.0, 1511.0, 253.0, 1409.0, 253.0, 1409.0, 246.0" coords2="1305.0, 246.0, 1305.0, 260.0, 1511.0, 260.0, 1511.0, 253.0, 1409.0, 253.0, 1409.0, 246.0" shape="poly" alt=":Extend" id="areadiagram_map_3aQ2UkaGAqAQZhTb" href="Extend_ZaQ2UkaGAqAQZhTZ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1157.0, 317.0, 1157.0, 381.0, 1164.0, 381.0, 1164.0, 371.0, 1171.0, 371.0, 1171.0, 317.0" coords2="1157.0, 317.0, 1157.0, 381.0, 1164.0, 381.0, 1164.0, 371.0, 1171.0, 371.0, 1171.0, 317.0" shape="poly" alt=":Extend" id="areadiagram_map_7fk2UkaGAqAQZhUY" href="Extend_hfk2UkaGAqAQZhUW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1113.0, 317.0, 1113.0, 494.0, 1127.0, 494.0, 1127.0, 317.0" coords2="1113.0, 317.0, 1113.0, 494.0, 1127.0, 494.0, 1127.0, 317.0" shape="poly" alt=":Extend" id="areadiagram_map_PYrzUkaGAqAQZgog" href="Extend_ZYrzUkaGAqAQZgoe.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="37.0, -8.0, 37.0, -5.0, 34.0, -5.0, 34.0, 9.0, 37.0, 9.0, 37.0, 280.0, 51.0, 280.0, 51.0, 9.0, 771.0, 9.0, 771.0, 301.0, 773.0, 301.0, 773.0, 292.0, 785.0, 292.0, 785.0, 9.0, 788.0, 9.0, 788.0, -5.0, 785.0, -5.0, 785.0, -8.0, 771.0, -8.0, 771.0, -5.0, 51.0, -5.0, 51.0, -8.0" coords2="37.0, -8.0, 37.0, -5.0, 34.0, -5.0, 34.0, 9.0, 37.0, 9.0, 37.0, 280.0, 51.0, 280.0, 51.0, 9.0, 771.0, 9.0, 771.0, 301.0, 773.0, 301.0, 773.0, 292.0, 785.0, 292.0, 785.0, 9.0, 788.0, 9.0, 788.0, -5.0, 785.0, -5.0, 785.0, -8.0, 771.0, -8.0, 771.0, -5.0, 51.0, -5.0, 51.0, -8.0" shape="poly" alt=":Generalization" id="areadiagram_map_vGhCX8aGAqAQZxZL" href="Generalization_FGhCX8aGAqAQZxZK.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="781.0, 357.0, 781.0, 849.81396, 742.064, 963.0, 751.0, 963.0, 751.0, 971.3571, 751.0, 971.3571, 754.0, 972.0, 791.10486, 865.0, 795.0, 865.0, 795.0, 853.76746, 797.0, 848.0, 795.0, 847.4286, 795.0, 357.0" coords2="781.0, 357.0, 781.0, 849.81396, 742.064, 963.0, 751.0, 963.0, 751.0, 971.3571, 751.0, 971.3571, 754.0, 972.0, 791.10486, 865.0, 795.0, 865.0, 795.0, 853.76746, 797.0, 848.0, 795.0, 847.4286, 795.0, 357.0" shape="poly" alt=":Generalization" id="areadiagram_map_gNpCX8aGAqAQZxZv" href="Generalization_V1pCX8aGAqAQZxZu.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Rozes&amp;#322;anie pro&amp;#347;by o stawienie w danym medium si&amp;#281; o danej godzinie 
+      wszystkich u&amp;#380;ytkownik&amp;#243;w
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="299, 340, 423, 392.0" coords2="299, 340, 423, 392.0" shape="rect" alt="Zwołanie zebrania:Use Case" id="areadiagram_map_onzYUkaGAqAQZg6U" href="UseCase_8HzYUkaGAqAQZg6K.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','299, 340, 423, 380',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('TextualAnalysis_0crWJEaFYFAUAw3A.html?shapeid=rs3OJEaFYFAUAw4c/Zwo&#x142;anie zebrania/TAClass'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '299, 340, 423, 380'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      U&amp;#380;ytkownicy mog&amp;#261; za pomoc&amp;#261; wyszukiwarki odnale&amp;#378;&amp;#263; konwersacje dotycz&amp;#261;ce 
+      interesuj&amp;#261;cych ich temat&amp;#243;w
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="479, 324, 693, 364" coords2="479, 324, 693, 364" shape="rect" alt="Wyszukiwanie wątków tematycznych:Use Case" id="areadiagram_map_IHTYUkaGAqAQZg5q" href="UseCase_i7TYUkaGAqAQZg5g.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Mo&amp;#380;na przydziela&amp;#263; punkty, kt&amp;#243;re maj&amp;#261; odzwierciedla&amp;#263; zaanga&amp;#380;owanie w prac&amp;#281;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="276, 247, 472, 287" coords2="276, 247, 472, 287" shape="rect" alt="Przydzielanie “punktów zaufania”:Use Case" id="areadiagram_map_m8PgUkaGAqAQZgy3" href="UseCase_RcPgUkaGAqAQZgyt.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Administrator mo&amp;#380;e wyszukiwa&amp;#263; odpowiednio wykwalifikowanych pracownik&amp;#243;w 
+      w&amp;#347;r&amp;#243;d wszystkich u&amp;#380;ytkownik&amp;#243;w systemu
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="268, 441, 428, 493.0" coords2="268, 441, 428, 493.0" shape="rect" alt="Poszukiwanie pracownika:Use Case" id="areadiagram_map_Y9XgUkaGAqAQZgx7" href="UseCase_cdXgUkaGAqAQZgxx.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','268, 441, 428, 481',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('TextualAnalysis_0crWJEaFYFAUAw3A.html?shapeid=a9S2JEaFYFAUAw3R/Poszukiwanie pracownika/TAClass'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '268, 441, 428, 481'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Umo&amp;#380;liwienie komunikacji przez czat tekstowy w grupie
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="238, 1101, 480, 1155" coords2="238, 1101, 480, 1155" shape="rect" alt="Tworzenie tekstowej konwersacji grupowej:Use Case" id="areadiagram_map_fGdYUkaGAqAQZg2P" href="UseCase_oGdYUkaGAqAQZg2F.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Do&amp;#322;&amp;#261;czenie do profilu zdj&amp;#281;cia, innych danych, dodatkowego e-maila, adresu
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="238, 937, 450, 982" coords2="238, 937, 450, 982" shape="rect" alt="Edycja profilu:Use Case" id="areadiagram_map_sPbgUkaGAqAQZgvP" href="UseCase_W3bgUkaGAqAQZgvF.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Umo&amp;#380;liwienie komunikacji przez czat g&amp;#322;osowy w grupie
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="233, 1030, 472, 1070" coords2="233, 1030, 472, 1070" shape="rect" alt="Tworzenie głosowej konwersacji grupowej:Use Case" id="areadiagram_map_kntYUkaGAqAQZg1y" href="UseCase_SHtYUkaGAqAQZg1o.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Umo&amp;#380;liwienie udost&amp;#281;pnianiania wsp&amp;#243;&amp;#322;pracownikom plik&amp;#243;w zwi&amp;#261;zanych z 
+      wykonywanymi zadaniami
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="247, 863, 457, 921.0" coords2="247, 863, 457, 921.0" shape="rect" alt="udostępnianie plików:Use Case" id="areadiagram_map_fo9YUkaGAqAQZg3R" href="UseCase__I9YUkaGAqAQZg3H.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','247, 863, 457, 909',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('TextualAnalysis_0crWJEaFYFAUAw3A.html?shapeid=oJQTkkaGAqAQZgbP/Udost&#x119;pnianie plik&#xf3;w/TAClass'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '247, 863, 457, 909'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Zarejestrowany u&amp;#380;ytkownik, kt&amp;#243;ry korzysta z systemu, mo&amp;#380;e by&amp;#263; cz&amp;#322;onkiem 
+      kilku grup
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="721, 963, 751, 1035.0" coords2="721, 963, 751, 1035.0" shape="rect" alt="Użytkownik:Actor" id="areadiagram_map_ddjYUkaGAqAQZg48" href="Actor_wdjYUkaGAqAQZg47.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','721, 963, 751, 1023',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('InteractionDiagram_oT8QdsaCkkS6phrP.html?shapeid=G7tQdsaCkkS6phrp/U&#x17c;ytkownik/Actor')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '721, 963, 751, 1023'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      U&amp;#380;ytkownik, kt&amp;#243;ry jest cz&amp;#322;onkiem tej samej grupy co inny u&amp;#380;ytkownik
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="773, 292, 803, 364.0" coords2="773, 292, 803, 364.0" shape="rect" alt="Współpracownik:Actor" id="areadiagram_map_2mTYUkaGAqAQZg5P" href="Actor_lGTYUkaGAqAQZg5O.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','773, 292, 803, 352',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('InteractionDiagram_bIwodsaCkkS6phyK.html?shapeid=d2SodsaCkkS6phyx/Wsp&#xf3;&#x142;pracownik/Actor','InteractionDiagram_fwMEdsaCkkS6ph9P.html?shapeid=E68EdsaCkkS6ph9p/Wsp&#xf3;&#x142;pracownik/Actor')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '773, 292, 803, 352'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="193, 822, 613, 1240" coords2="193, 822, 613, 1240" shape="rect" alt="Baza użytkowników:System" id="areadiagram_map_TxN6skaFYFAUAwru" href="System_TxN6skaFYFAUAwrv.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Utworzenie cel&amp;#243;w/zada&amp;#324; do kt&amp;#243;rych mo&amp;#380;na przypisa&amp;#263; czas trawania oraz 
+      u&amp;#380;ytkownik&amp;#243;w, ktorzy maj&amp;#261; zadanie wykona&amp;#263;.
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="1022, 494, 1208, 548" coords2="1022, 494, 1208, 548" shape="rect" alt="Planowanie zadań/celów:Use Case" id="areadiagram_map_icXgUkaGAqAQZgxW" href="UseCase__sXgUkaGAqAQZgxM.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Uzyskanie dost&amp;#281;pu do wszystkich mo&amp;#380;liwo&amp;#347;ci systemu
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="902, 941, 1097, 1004" coords2="902, 941, 1097, 1004" shape="rect" alt="Logowanie   użytkownika:Use Case" id="areadiagram_map_BJHgUkaGAqAQZgwy" href="UseCase_1xHgUkaGAqAQZgwo.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Utworzenie konta u&amp;#380;ytkownika
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="916, 1080, 1119, 1146" coords2="916, 1080, 1119, 1146" shape="rect" alt="Rejestracja   użytkownika:Use Case" id="areadiagram_map_lKvgUkaGAqAQZgzp" href="UseCase_byvgUkaGAqAQZgzf.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Mo&amp;#380;liwo&amp;#347;&amp;#263; zobaczenia publicznych wydarze&amp;#324; w kalendarzach innych 
+      u&amp;#380;ytkownik&amp;#243;w
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="966, 202, 1305, 317" coords2="966, 202, 1305, 317" shape="rect" alt="Przeglądanie kalendarza:Use Case" id="areadiagram_map_Gu5WUkaGAqAQZhSM" href="UseCase_FO5WUkaGAqAQZhSC.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="854, 846, 1183, 1208" coords2="854, 846, 1183, 1208" shape="rect" alt="Logowanie/rejestracja:System" id="areadiagram_map_gzF6skaFYFAUAwrk" href="System_QzF6skaFYFAUAwrl.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      W ramach grupy mog&amp;#261; by&amp;#263; tworzone dodatkowe fora do wymiany informacji 
+      u&amp;#380;ytkownik&amp;#243;w na konkretne tematy
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="214, 127, 508, 181" coords2="214, 127, 508, 181" shape="rect" alt="Tworzenie forum tematycznego:Use Case" id="areadiagram_map_5ppcUkaGAqAQZhGH" href="UseCase_tJpcUkaGAqAQZhF9.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Tworzenie list rzeczy do zrobienia z alarmami w konkretnym czasie
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="1164, 371, 1318, 411" coords2="1164, 371, 1318, 411" shape="rect" alt="Ustawianie przypomnień:Use Case" id="areadiagram_map_uZDYUkaGAqAQZg4o" href="UseCase_JpDYUkaGAqAQZg4e.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Przydzielanie statusu, kt&amp;#243;ry ma m&amp;#243;wi&amp;#263;, czy u&amp;#380;ytkownik poszukuje zaj&amp;#281;cia
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="1375, 317, 1559, 371" coords2="1375, 317, 1559, 371" shape="rect" alt="Ustawianie dostępności:Use Case" id="areadiagram_map_K4DYUkaGAqAQZg4L" href="UseCase_hYDYUkaGAqAQZg4B.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="186, 72, 716, 638" coords2="186, 72, 716, 638" shape="rect" alt="Zarządzanie grupą:System" id="areadiagram_map_x7W6skaFYFAUAwq3" href="System_Z7W6skaFYFAUAwq4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      U&amp;#380;ytkownik widzi, kiedy jego wsp&amp;#243;&amp;#322;pracownicy nie mog&amp;#261; pracowa&amp;#263;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="1409, 213, 1595, 253" coords2="1409, 213, 1595, 253" shape="rect" alt="Udostępnianie terminów urlopu:Use Case" id="areadiagram_map_XB9YUkaGAqAQZg3u" href="UseCase_oB9YUkaGAqAQZg3k.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      U&amp;#380;ytkownik mo&amp;#380;e tworzy&amp;#263; wydarzenia oraz informowa&amp;#263; o nich automatycznie 
+      innych u&amp;#380;ytkownik&amp;#243;w
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="1389, 105, 1565, 159" coords2="1389, 105, 1565, 159" shape="rect" alt="Tworzenie wydarzeń:Use Case" id="areadiagram_map_utdYUkaGAqAQZg2x" href="UseCase_pNdYUkaGAqAQZg2n.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      Mo&amp;#380;liwo&amp;#347;&amp;#263; wys&amp;#322;ania terminu spotkania/rozmowy do u&amp;#380;ytkownika w celu 
+      um&amp;#243;wienia si&amp;#281; na spotkanie zwi&amp;#261;zane z prac&amp;#261;
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="845, 619, 1115, 659" coords2="845, 619, 1115, 659" shape="rect" alt="Rezerwacja spotkań z wybranym użytkownikiem:Use Case" id="areadiagram_map_wx1YUkaGAqAQZg06" href="UseCase_IR1YUkaGAqAQZg0w.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      System wy&amp;#347;wietla wykonane cele w jednolitym raporcie, okre&amp;#347;laj&amp;#261;c procent 
+      wykonanych zada&amp;#324; i wyliczaj&amp;#261;c tendencje
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="1229, 602, 1415, 642" coords2="1229, 602, 1415, 642" shape="rect" alt="Kontrola realizacji zadań/celów:Use Case" id="areadiagram_map_gwHgUkaGAqAQZgwS" href="UseCase_cQHgUkaGAqAQZgwI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      U&amp;#380;ytkownik, kt&amp;#243;ry posiada najwy&amp;#380;sze uprawnienia w grupie - zarz&amp;#261;dza 
+      grup&amp;#261; i uczestnikami
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="29, 280, 59, 352.0" coords2="29, 280, 59, 352.0" shape="rect" alt="Administrator:Actor" id="areadiagram_map_kELgUkaGAqAQZgui" href="Actor_O4LgUkaGAqAQZguh.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','29, 280, 59, 340',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('TextualAnalysis_0crWJEaFYFAUAw3A.html?shapeid=Fro2JEaFYFAUAw3H/Administrator/TAClass'),new Array('InteractionDiagram_htwftsaCkkS6phfG.html?shapeid=fOV_tsaCkkS6phhx/Administrator/Actor','InteractionDiagram_bIwodsaCkkS6phyK.html?shapeid=lecodsaCkkS6phyh/Administrator/Actor','InteractionDiagram_fwMEdsaCkkS6ph9P.html?shapeid=WDCEdsaCkkS6ph99/Administrator/Actor')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '29, 280, 59, 340'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="822, 22, 1662, 743" coords2="822, 22, 1662, 743" shape="rect" alt="Kalendarz:System" id="areadiagram_map_8H.6skaFYFAUAwrM" href="System_8H_6skaFYFAUAwrN.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/System.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/System.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="System_TxN6skaFYFAUAwrv.html" class="ItemLink">Baza użytkowników : System</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/System.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/System.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="System_QzF6skaFYFAUAwrl.html" class="ItemLink">Logowanie/rejestracja : System</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/System.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/System.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="System_Z7W6skaFYFAUAwq4.html" class="ItemLink">Zarządzanie grupą : System</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/System.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/System.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="System_8H_6skaFYFAUAwrN.html" class="ItemLink">Kalendarz : System</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_O4LgUkaGAqAQZguh.html" class="ItemLink">Administrator : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      U&#380;ytkownik, kt&#243;ry posiada najwy&#380;sze uprawnienia w grupie - zarz&#261;dza 
+      grup&#261; i uczestnikami
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_wdjYUkaGAqAQZg47.html" class="ItemLink">Użytkownik : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Zarejestrowany u&#380;ytkownik, kt&#243;ry korzysta z systemu, mo&#380;e by&#263; cz&#322;onkiem 
+      kilku grup
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Actor_lGTYUkaGAqAQZg5O.html" class="ItemLink">Współpracownik : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      U&#380;ytkownik, kt&#243;ry jest cz&#322;onkiem tej samej grupy co inny u&#380;ytkownik
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_W3bgUkaGAqAQZgvF.html" class="ItemLink">Edycja profilu : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Do&#322;&#261;czenie do profilu zdj&#281;cia, innych danych, dodatkowego e-maila, adresu
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_cQHgUkaGAqAQZgwI.html" class="ItemLink">Kontrola realizacji zadań/celów : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      System wy&#347;wietla wykonane cele w jednolitym raporcie, okre&#347;laj&#261;c procent 
+      wykonanych zada&#324; i wyliczaj&#261;c tendencje
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_1xHgUkaGAqAQZgwo.html" class="ItemLink">Logowanie   użytkownika : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Uzyskanie dost&#281;pu do wszystkich mo&#380;liwo&#347;ci systemu
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase__sXgUkaGAqAQZgxM.html" class="ItemLink">Planowanie zadań/celów : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Utworzenie cel&#243;w/zada&#324; do kt&#243;rych mo&#380;na przypisa&#263; czas trawania oraz 
+      u&#380;ytkownik&#243;w, ktorzy maj&#261; zadanie wykona&#263;.
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_cdXgUkaGAqAQZgxx.html" class="ItemLink">Poszukiwanie pracownika : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Administrator mo&#380;e wyszukiwa&#263; odpowiednio wykwalifikowanych pracownik&#243;w 
+      w&#347;r&#243;d wszystkich u&#380;ytkownik&#243;w systemu
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_RcPgUkaGAqAQZgyt.html" class="ItemLink">Przydzielanie “punktów zaufania” : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Mo&#380;na przydziela&#263; punkty, kt&#243;re maj&#261; odzwierciedla&#263; zaanga&#380;owanie w prac&#281;
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_byvgUkaGAqAQZgzf.html" class="ItemLink">Rejestracja   użytkownika : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Utworzenie konta u&#380;ytkownika
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_IR1YUkaGAqAQZg0w.html" class="ItemLink">Rezerwacja spotkań z wybranym użytkownikiem : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Mo&#380;liwo&#347;&#263; wys&#322;ania terminu spotkania/rozmowy do u&#380;ytkownika w celu 
+      um&#243;wienia si&#281; na spotkanie zwi&#261;zane z prac&#261;
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_SHtYUkaGAqAQZg1o.html" class="ItemLink">Tworzenie głosowej konwersacji grupowej : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Umo&#380;liwienie komunikacji przez czat g&#322;osowy w grupie
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_oGdYUkaGAqAQZg2F.html" class="ItemLink">Tworzenie tekstowej konwersacji grupowej : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Umo&#380;liwienie komunikacji przez czat tekstowy w grupie
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_pNdYUkaGAqAQZg2n.html" class="ItemLink">Tworzenie wydarzeń : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      U&#380;ytkownik mo&#380;e tworzy&#263; wydarzenia oraz informowa&#263; o nich automatycznie 
+      innych u&#380;ytkownik&#243;w
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase__I9YUkaGAqAQZg3H.html" class="ItemLink">udostępnianie plików : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Umo&#380;liwienie udost&#281;pnianiania wsp&#243;&#322;pracownikom plik&#243;w zwi&#261;zanych z 
+      wykonywanymi zadaniami
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_oB9YUkaGAqAQZg3k.html" class="ItemLink">Udostępnianie terminów urlopu : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      U&#380;ytkownik widzi, kiedy jego wsp&#243;&#322;pracownicy nie mog&#261; pracowa&#263;
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_hYDYUkaGAqAQZg4B.html" class="ItemLink">Ustawianie dostępności : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Przydzielanie statusu, kt&#243;ry ma m&#243;wi&#263;, czy u&#380;ytkownik poszukuje zaj&#281;cia
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_JpDYUkaGAqAQZg4e.html" class="ItemLink">Ustawianie przypomnień : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Tworzenie list rzeczy do zrobienia z alarmami w konkretnym czasie
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_i7TYUkaGAqAQZg5g.html" class="ItemLink">Wyszukiwanie wątków tematycznych : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      U&#380;ytkownicy mog&#261; za pomoc&#261; wyszukiwarki odnale&#378;&#263; konwersacje dotycz&#261;ce 
+      interesuj&#261;cych ich temat&#243;w
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_8HzYUkaGAqAQZg6K.html" class="ItemLink">Zwołanie zebrania : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Rozes&#322;anie pro&#347;by o stawienie w danym medium si&#281; o danej godzinie 
+      wszystkich u&#380;ytkownik&#243;w
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_tJpcUkaGAqAQZhF9.html" class="ItemLink">Tworzenie forum tematycznego : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      W ramach grupy mog&#261; by&#263; tworzone dodatkowe fora do wymiany informacji 
+      u&#380;ytkownik&#243;w na konkretne tematy
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="UseCase_FO5WUkaGAqAQZhSC.html" class="ItemLink">Przeglądanie kalendarza : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      Mo&#380;liwo&#347;&#263; zobaczenia publicznych wydarze&#324; w kalendarzach innych 
+      u&#380;ytkownik&#243;w
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+</body>
+</html>

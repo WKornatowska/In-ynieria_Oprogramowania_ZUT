@@ -1,0 +1,553 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Communication Diagram - Utwórz kanał tekstowy - Communications</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Communication Diagram - Utwórz kanał tekstowy - Communications		</span>
+<a onclick="javascript: showVpLink('Projekt_IO.vpp://diagram/TQFxMcaCkkS6xBIn', 'Utw&#xf3;rz kana&#x142; tekstowy - Communications\nProjekt_IO.vpp://diagram/TQFxMcaCkkS6xBIn', 'Utw&#xf3;rz kana&#x142; tekstowy - Communications', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|882.0|38.0|60.0|60.0|Message_E5todsaCkkS6ph0U.html|Message_E5todsaCkkS6ph0U.html|R4FxMcaCkkS6xBJE" id="optionR4FxMcaCkkS6xBJE">pobierzKanaly(Grupa) : Message</option>
+<option value="shape|273.0|85.0|60.0|60.0|Message_VYI4dsaCkkS6ph50.html|Message_VYI4dsaCkkS6ph50.html|7EFxMcaCkkS6xBJf" id="option7EFxMcaCkkS6xBJf">wyslijPowiadomienieODodaniu(Kanal) : Message</option>
+<option value="shape|404.0|49.0|60.0|60.0|Message_QnHodsaCkkS6ph09.html|Message_QnHodsaCkkS6ph09.html|54FxMcaCkkS6xBJG" id="option54FxMcaCkkS6xBJG">kanalyGrupy : Message</option>
+<option value="shape|882.0|38.0|60.0|60.0|Message_mZZYdsaCkkS6ph3r.html|Message_mZZYdsaCkkS6ph3r.html|34FxMcaCkkS6xBJQ" id="option34FxMcaCkkS6xBJQ">zapiszKanal(Kanal) : Message</option>
+<option value="shape|404.0|49.0|60.0|60.0|Message_mz1YdsaCkkS6ph4G.html|Message_mz1YdsaCkkS6ph4G.html|_4FxMcaCkkS6xBJS" id="option_4FxMcaCkkS6xBJS">komunikatUtworzenia : Message</option>
+<option value="shape|882.0|38.0|60.0|60.0|Message_HcvYdsaCkkS6ph5b.html|Message_HcvYdsaCkkS6ph5b.html|0EFxMcaCkkS6xBJY" id="option0EFxMcaCkkS6xBJY">zapiszUzytkownikow(Kanal, Uzytkownicy) : Message</option>
+<option value="shape|404.0|49.0|60.0|60.0|Message_4TM4dsaCkkS6ph6H.html|Message_4TM4dsaCkkS6ph6H.html|PEFxMcaCkkS6xBJh" id="optionPEFxMcaCkkS6xBJh">komunikatPotwierdzeniaZmian : Message</option>
+<option value="shape|1379.0|82.0|60.0|60.0|Message_DupodsaCkkS6phzs.html|Message_DupodsaCkkS6phzs.html|LYFxMcaCkkS6xBI9" id="optionLYFxMcaCkkS6xBI9">otworzKanaly(Grupa) : Message</option>
+<option value="shape|1113.0|72.0|60.0|60.0|Message_oqvodsaCkkS6ph1X.html|Message_oqvodsaCkkS6ph1X.html|14FxMcaCkkS6xBJI" id="option14FxMcaCkkS6xBJI">wyswietlKanaly(Grupa) : Message</option>
+<option value="shape|1379.0|82.0|60.0|60.0|Message_1HCYdsaCkkS6ph2M.html|Message_1HCYdsaCkkS6ph2M.html|94FxMcaCkkS6xBJK" id="option94FxMcaCkkS6xBJK">utworzKanal() : Message</option>
+<option value="shape|1113.0|72.0|60.0|60.0|Message_ndWYdsaCkkS6ph2y.html|Message_ndWYdsaCkkS6ph2y.html|z4FxMcaCkkS6xBJM" id="optionz4FxMcaCkkS6xBJM">otwarcieOknaTworzenia() : Message</option>
+<option value="shape|1379.0|82.0|60.0|60.0|Message_mMBYdsaCkkS6ph3L.html|Message_mMBYdsaCkkS6ph3L.html|74FxMcaCkkS6xBJO" id="option74FxMcaCkkS6xBJO"> przeslijDane(Kanal,Grupa) : Message</option>
+<option value="shape|1113.0|72.0|60.0|60.0|Message_hrjYdsaCkkS6ph4v.html|Message_hrjYdsaCkkS6ph4v.html|wEFxMcaCkkS6xBJU" id="optionwEFxMcaCkkS6xBJU">pokaz(komunikatUtworzenia) : Message</option>
+<option value="shape|1379.0|82.0|60.0|60.0|Message_B57YdsaCkkS6ph5G.html|Message_B57YdsaCkkS6ph5G.html|4EFxMcaCkkS6xBJW" id="option4EFxMcaCkkS6xBJW">dodajUzytkownikow(Kanal, Uzytkownicy) : Message</option>
+<option value="shape|1113.0|72.0|60.0|60.0|Message_8e84dsaCkkS6ph6e.html|Message_8e84dsaCkkS6ph6e.html|AkFxMcaCkkS6xBJj" id="optionAkFxMcaCkkS6xBJj">pokaz(komunikatPotwierdzenia) : Message</option>
+<option value="shape|1462.0|27.0|30.0|60.0|InteractionActor_lecodsaCkkS6phyi.html|InteractionActor_lecodsaCkkS6phyi.html|kYFxMcaCkkS6xBI2" id="optionkYFxMcaCkkS6xBI2">Administrator : Actor</option>
+<option value="shape|25.0|66.0|30.0|60.0|InteractionActor_92SodsaCkkS6phyy.html|InteractionActor_92SodsaCkkS6phyy.html|4YFxMcaCkkS6xBI0" id="option4YFxMcaCkkS6xBI0">Współpracownik : Actor</option>
+<option value="shape|1016.0|71.0|70.0|40.0|InteractionLifeLine_Qm2odsaCkkS6phzJ.html|InteractionLifeLine_Qm2odsaCkkS6phzJ.html|4YFxMcaCkkS6xBIy" id="option4YFxMcaCkkS6xBIy">GUI : Lifeline</option>
+<option value="shape|339.0|80.0|70.0|40.0|InteractionLifeLine_egOodsaCkkS6phzR.html|InteractionLifeLine_egOodsaCkkS6phzR.html|YYFxMcaCkkS6xBIw" id="optionYYFxMcaCkkS6xBIw">Grupy : Lifeline</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Utwrz_kana_tekstowy_Communications.png" usemap="#diagram_map" class="Image" width="1626" height="240"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="55.0, 93.0, 55.0, 107.0, 339.0, 107.0, 339.0, 93.0" coords2="55.0, 93.0, 55.0, 107.0, 339.0, 107.0, 339.0, 93.0" shape="poly" alt=":Link" id="areadiagram_map_8EFxMcaCkkS6xBJa" href="InteractionLifeLineLink_CEFxMcaCkkS6xBJb.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="409.0, 88.0, 409.0, 102.0, 1016.0, 102.0, 1016.0, 88.0" coords2="409.0, 88.0, 409.0, 102.0, 1016.0, 102.0, 1016.0, 88.0" shape="poly" alt=":Link" id="areadiagram_map_nYFxMcaCkkS6xBI_" href="InteractionLifeLineLink_nYFxMcaCkkS6xBJA.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1086.0, 81.0, 1086.0, 95.0, 1472.0, 95.0, 1472.0, 87.0, 1462.0, 87.0, 1462.0, 81.0" coords2="1086.0, 81.0, 1086.0, 95.0, 1472.0, 95.0, 1472.0, 87.0, 1462.0, 87.0, 1462.0, 81.0" shape="poly" alt=":Link" id="areadiagram_map_UYFxMcaCkkS6xBI4" href="InteractionLifeLineLink_UYFxMcaCkkS6xBI5.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="882, 38, 942, 98" coords2="882, 38, 942, 98" shape="rect" alt="1.1: pobierzKanaly(Grupa):Message" id="areadiagram_map_R4FxMcaCkkS6xBJE" href="Message_E5todsaCkkS6ph0U.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="273, 85, 333, 145" coords2="273, 85, 333, 145" shape="rect" alt="4.1.1: wyslijPowiadomienieODodaniu(Kanal):Message" id="areadiagram_map_7EFxMcaCkkS6xBJf" href="Message_VYI4dsaCkkS6ph50.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="404, 49, 464, 109" coords2="404, 49, 464, 109" shape="rect" alt="1.2: kanalyGrupy:Message" id="areadiagram_map_54FxMcaCkkS6xBJG" href="Message_QnHodsaCkkS6ph09.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="882, 38, 942, 98" coords2="882, 38, 942, 98" shape="rect" alt="3.1: zapiszKanal(Kanal):Message" id="areadiagram_map_34FxMcaCkkS6xBJQ" href="Message_mZZYdsaCkkS6ph3r.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="404, 49, 464, 109" coords2="404, 49, 464, 109" shape="rect" alt="3.2: komunikatUtworzenia:Message" id="areadiagram_map__4FxMcaCkkS6xBJS" href="Message_mz1YdsaCkkS6ph4G.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="882, 38, 942, 98" coords2="882, 38, 942, 98" shape="rect" alt="4.1: zapiszUzytkownikow(Kanal, Uzytkownicy):Message" id="areadiagram_map_0EFxMcaCkkS6xBJY" href="Message_HcvYdsaCkkS6ph5b.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="404, 49, 464, 109" coords2="404, 49, 464, 109" shape="rect" alt="4.1.2: komunikatPotwierdzeniaZmian:Message" id="areadiagram_map_PEFxMcaCkkS6xBJh" href="Message_4TM4dsaCkkS6ph6H.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1379, 82, 1439, 142" coords2="1379, 82, 1439, 142" shape="rect" alt="1: otworzKanaly(Grupa):Message" id="areadiagram_map_LYFxMcaCkkS6xBI9" href="Message_DupodsaCkkS6phzs.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1113, 72, 1173, 132" coords2="1113, 72, 1173, 132" shape="rect" alt="1.3: wyswietlKanaly(Grupa):Message" id="areadiagram_map_14FxMcaCkkS6xBJI" href="Message_oqvodsaCkkS6ph1X.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1379, 82, 1439, 142" coords2="1379, 82, 1439, 142" shape="rect" alt="2: utworzKanal():Message" id="areadiagram_map_94FxMcaCkkS6xBJK" href="Message_1HCYdsaCkkS6ph2M.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1113, 72, 1173, 132" coords2="1113, 72, 1173, 132" shape="rect" alt="2.1: otwarcieOknaTworzenia():Message" id="areadiagram_map_z4FxMcaCkkS6xBJM" href="Message_ndWYdsaCkkS6ph2y.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1379, 82, 1439, 142" coords2="1379, 82, 1439, 142" shape="rect" alt="3:  przeslijDane(Kanal,Grupa):Message" id="areadiagram_map_74FxMcaCkkS6xBJO" href="Message_mMBYdsaCkkS6ph3L.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1113, 72, 1173, 132" coords2="1113, 72, 1173, 132" shape="rect" alt="3.3: pokaz(komunikatUtworzenia):Message" id="areadiagram_map_wEFxMcaCkkS6xBJU" href="Message_hrjYdsaCkkS6ph4v.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1379, 82, 1439, 142" coords2="1379, 82, 1439, 142" shape="rect" alt="4: dodajUzytkownikow(Kanal, Uzytkownicy):Message" id="areadiagram_map_4EFxMcaCkkS6xBJW" href="Message_B57YdsaCkkS6ph5G.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="1113, 72, 1173, 132" coords2="1113, 72, 1173, 132" shape="rect" alt="4.1.3: pokaz(komunikatPotwierdzenia):Message" id="areadiagram_map_AkFxMcaCkkS6xBJj" href="Message_8e84dsaCkkS6ph6e.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      U&amp;#380;ytkownik, kt&amp;#243;ry posiada najwy&amp;#380;sze uprawnienia w grupie - zarz&amp;#261;dza 
+      grup&amp;#261; i uczestnikami
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="1462, 27, 1492, 99.0" coords2="1462, 27, 1492, 99.0" shape="rect" alt="Administrator:Actor" id="areadiagram_map_kYFxMcaCkkS6xBI2" href="InteractionActor_lecodsaCkkS6phyi.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','1462, 27, 1492, 87',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('UseCaseDiagram_s04gUkaGAqAQZgir.html?shapeid=kELgUkaGAqAQZgui/Administrator/Actor'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '1462, 27, 1492, 87'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" docContent="&amp;lt;html&amp;gt;
+  &amp;lt;head&amp;gt;
+    
+  &amp;lt;/head&amp;gt;
+  &amp;lt;body&amp;gt;
+    &amp;lt;p style=&amp;quot;margin-top:0;&amp;quot;&amp;gt;
+      U&amp;#380;ytkownik, kt&amp;#243;ry jest cz&amp;#322;onkiem tej samej grupy co inny u&amp;#380;ytkownik
+    &amp;lt;/p&amp;gt;
+  &amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+" coords="25, 66, 55, 138.0" coords2="25, 66, 55, 138.0" shape="rect" alt="Współpracownik:Actor" id="areadiagram_map_4YFxMcaCkkS6xBI0" href="InteractionActor_92SodsaCkkS6phyy.html" onmouseover="storeReferenceAndSubdiagramInfos('diagram','25, 66, 55, 126',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('UseCaseDiagram_s04gUkaGAqAQZgir.html?shapeid=2mTYUkaGAqAQZg5P/Wsp&#xf3;&#x142;pracownik/Actor'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('diagram', '25, 66, 55, 126'),showTooltip(this)" onmousedown="clearSpotLight();" onmouseout="hideTooltip()"/>
+<area imageId="diagram" coords="1016, 71, 1086, 111" coords2="1016, 71, 1086, 111" shape="rect" alt="GUI:Lifeline" id="areadiagram_map_4YFxMcaCkkS6xBIy" href="InteractionLifeLine_Qm2odsaCkkS6phzJ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="339, 80, 409, 120" coords2="339, 80, 409, 120" shape="rect" alt="Grupy:Lifeline" id="areadiagram_map_YYFxMcaCkkS6xBIw" href="InteractionLifeLine_egOodsaCkkS6phzR.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_E5todsaCkkS6ph0U.html" class="ItemLink">pobierzKanaly(Grupa) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_VYI4dsaCkkS6ph50.html" class="ItemLink">wyslijPowiadomienieODodaniu(Kanal) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_QnHodsaCkkS6ph09.html" class="ItemLink">kanalyGrupy : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_mZZYdsaCkkS6ph3r.html" class="ItemLink">zapiszKanal(Kanal) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_mz1YdsaCkkS6ph4G.html" class="ItemLink">komunikatUtworzenia : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_HcvYdsaCkkS6ph5b.html" class="ItemLink">zapiszUzytkownikow(Kanal, Uzytkownicy) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_4TM4dsaCkkS6ph6H.html" class="ItemLink">komunikatPotwierdzeniaZmian : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_DupodsaCkkS6phzs.html" class="ItemLink">otworzKanaly(Grupa) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_oqvodsaCkkS6ph1X.html" class="ItemLink">wyswietlKanaly(Grupa) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_1HCYdsaCkkS6ph2M.html" class="ItemLink">utworzKanal() : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_ndWYdsaCkkS6ph2y.html" class="ItemLink">otwarcieOknaTworzenia() : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_mMBYdsaCkkS6ph3L.html" class="ItemLink"> przeslijDane(Kanal,Grupa) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_hrjYdsaCkkS6ph4v.html" class="ItemLink">pokaz(komunikatUtworzenia) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_B57YdsaCkkS6ph5G.html" class="ItemLink">dodajUzytkownikow(Kanal, Uzytkownicy) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ObjectMessage.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ObjectMessage.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Message_8e84dsaCkkS6ph6e.html" class="ItemLink">pokaz(komunikatPotwierdzenia) : Message</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="InteractionActor_lecodsaCkkS6phyi.html" class="ItemLink">Administrator : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      U&#380;ytkownik, kt&#243;ry posiada najwy&#380;sze uprawnienia w grupie - zarz&#261;dza 
+      grup&#261; i uczestnikami
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="InteractionActor_92SodsaCkkS6phyy.html" class="ItemLink">Współpracownik : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"><html>
+  <head>
+    
+  </head>
+  <body>
+    <p style="margin-top:0;">
+      U&#380;ytkownik, kt&#243;ry jest cz&#322;onkiem tej samej grupy co inny u&#380;ytkownik
+    </p>
+  </body>
+</html>
+</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/LifeLine.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/LifeLine.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="InteractionLifeLine_Qm2odsaCkkS6phzJ.html" class="ItemLink">GUI : Lifeline</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/LifeLine.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/LifeLine.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="InteractionLifeLine_egOodsaCkkS6phzR.html" class="ItemLink">Grupy : Lifeline</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+</body>
+</html>
