@@ -1,0 +1,451 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Activity Diagram - Ustawianie przypomnien</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_top">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-top: 2px #FF0000 solid;" id="spotlight_bottom">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_left">
+	</div>
+	<div style="position:absolute; z-index:2; visibility:hidden;border-left: 2px #FF0000 solid;" id="spotlight_right">
+	</div>
+	<canvas width="100" style="position:absolute; z-index:2; visibility:hidden" id="spotlight_c" height="100">
+	</canvas>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesTop">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden" id="spotLightResourcesRight">
+		<table border="0" cellpadding="0" cellspacing="0">
+			<tr>
+				<td>
+<a href="#top"><img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>				</td>
+			</tr>
+			<tr>
+				<td>
+<a href="javascript:clearSpotLightFromOpenSpecButton();"><img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute;z-index:4;visibility:hidden" id="linkPopupMenuLayer">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="linkPopupMenuTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="referenceIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="subdiagramIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="transitorIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div style="position:absolute; z-index:1; visibility:hidden; " id="documentationIconLayer">
+		<table border="0" cellpadding="3" cellspacing="0" style="font-size:1;">
+			<tr>
+				<td>
+					<img src="../images/icons/Documentation.png" style="border:none" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="referencedBys">
+		<table border="0" width="100%" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" id="referencedBysTable">
+		</table>
+	</div>
+	<div style="position:absolute; z-index:21; visibility:hidden" id="vplink">
+		<table border="1" cellpadding="0" cellspacing="0" bordercolor="#A9BFD3">
+			<tr>
+				<td>
+					<table border="0" cellpadding="0" width="100%" cellspacing="0">
+						<tr style="background:#DDDDDD">
+							<td style="font-size: 12px;" align="left">
+								<select onchange="vpLinkToggleName()" id="vplink-linkType">
+	<option value="Project Link">Project Link</option>
+	<option value="Page URL">Page URL</option>
+</select>
+							</td>
+							<td style="font-size: 12px;" align="right">
+								<input onclick="javascript: vpLinkToggleName()" id="vplink-checkbox" type="checkbox" />
+								<label for="vplink-checkbox">with Name</label>							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<textarea id="vplink-text" style="width: 348px; height: 60px; border-color: #7EADD9; outline: none;"></textarea>				</td>
+			</tr>
+		</table>
+	</div>
+	<p class="PageTitle">
+		<span id="PageTitleText">
+			Activity Diagram - Ustawianie przypomnien		</span>
+<a onclick="javascript: showVpLink('Projekt_IO.vpp://diagram/6T7kv8aGAqAAeRPm', 'Ustawianie przypomnien\nProjekt_IO.vpp://diagram/6T7kv8aGAqAAeRPm', 'Ustawianie przypomnien', this); return false;" style="padding-left: 16px; font-size: 12px" href="#"><img src="../images/icons/link.png" border="0"> link</a>	</p>
+	<div style="position: relative; padding-bottom: 20px;">
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: absolute; top: 0; left: 0; z-index: 20;" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),hideLinkPopup(),hideReferencedBys();">
+			<tr>
+				<td>
+<span class="TableContent">Jump to:</span>					<select id="SelectShape" class="TableContent" onChange="scrollWin('diagram', this.value);hideLinkPopup();showSpotLight('diagram', this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|91.0|64.0|122.0|80.0|Activity_SQXkv8aGAqAAeRP5.html|Activity_SQXkv8aGAqAAeRP5.html|SQXkv8aGAqAAeRP4" id="optionSQXkv8aGAqAAeRP4">Otworz kalendarz : Activity</option>
+<option value="shape|500.0|126.0|131.0|80.0|Activity_MLPkv8aGAqAAeRP_.html|Activity_MLPkv8aGAqAAeRP_.html|MLPkv8aGAqAAeRP." id="optionMLPkv8aGAqAAeRP.">Wyswietl kalendarz : Activity</option>
+<option value="shape|87.0|250.0|230.0|80.0|Activity_3Q_kv8aGAqAAeRQH.html|Activity_3Q_kv8aGAqAAeRQH.html|3Q_kv8aGAqAAeRQG" id="option3Q_kv8aGAqAAeRQG">Kliknij przycisk utworz przypomnienie : Activity</option>
+<option value="shape|489.0|358.0|272.0|80.0|Activity_LGQUv8aGAqAAeRQP.html|Activity_LGQUv8aGAqAAeRQP.html|LGQUv8aGAqAAeRQO" id="optionLGQUv8aGAqAAeRQO">Wyswietl formularz tworzenia przypomninenia : Activity</option>
+<option value="shape|99.0|448.0|221.0|80.0|Activity_iloUv8aGAqAAeRQX.html|Activity_iloUv8aGAqAAeRQX.html|iloUv8aGAqAAeRQW" id="optioniloUv8aGAqAAeRQW">Wprowadz szczegoly przypomnienia : Activity</option>
+<option value="shape|231.0|513.0|70.0|30.0|ActivityParameterNode_PJ0Uv8aGAqAAeRQi.html|ActivityParameterNode_PJ0Uv8aGAqAAeRQi.html|PJ0Uv8aGAqAAeRQh" id="optionPJ0Uv8aGAqAAeRQh">Nazwa : Activity Parameter Node</option>
+<option value="shape|140.0|513.0|70.0|30.0|ActivityParameterNode_99sUv8aGAqAAeRQr.html|ActivityParameterNode_99sUv8aGAqAAeRQr.html|99sUv8aGAqAAeRQq" id="option99sUv8aGAqAAeRQq">Data : Activity Parameter Node</option>
+<option value="shape|285.0|475.0|70.0|30.0|ActivityParameterNode_vB8Uv8aGAqAAeRQ0.html|ActivityParameterNode_vB8Uv8aGAqAAeRQ0.html|vB8Uv8aGAqAAeRQz" id="optionvB8Uv8aGAqAAeRQz">Godzina : Activity Parameter Node</option>
+<option value="shape|64.0|486.0|70.0|30.0|ActivityParameterNode_1ByUv8aGAqAAeRRA.html|ActivityParameterNode_1ByUv8aGAqAAeRRA.html|1ByUv8aGAqAAeRQ_" id="option1ByUv8aGAqAAeRQ_">Status : Activity Parameter Node</option>
+<option value="shape|145.0|613.0|145.0|80.0|Activity_YjWUv8aGAqAAeRRg.html|Activity_YjWUv8aGAqAAeRRg.html|YjWUv8aGAqAAeRRf" id="optionYjWUv8aGAqAAeRRf">Zapisz przypomnienie : Activity</option>
+<option value="shape|443.0|594.0|300.0|80.0|Activity_FRuUv8aGAqAAeRRr.html|Activity_FRuUv8aGAqAAeRRr.html|FRuUv8aGAqAAeRRq" id="optionFRuUv8aGAqAAeRRq">Wyswietl przupomnienie w kalendarzu i na liscie zadan : Activity</option>
+<option value="shape|6.0|6.0|775.0|774.0|ActivitySwimlane2_P11Uv8aGAqAAeRTw.html|ActivitySwimlane2_P11Uv8aGAqAAeRTw.html|311Uv8aGAqAAeRTv" id="option311Uv8aGAqAAeRTv">Swimlane6 : Swimlane</option>
+<option value="shape|6.0|6.0|367.0|15.0|ActivityPartition_mN1Uv8aGAqAAeRT0.html|ActivityPartition_mN1Uv8aGAqAAeRT0.html|GN1Uv8aGAqAAeRTz" id="optionGN1Uv8aGAqAAeRTz">Wspolpracownik&emsp; : Activity Partition</option>
+<option value="shape|373.0|6.0|408.0|15.0|ActivityPartition_Ut1Uv8aGAqAAeRT6.html|ActivityPartition_Ut1Uv8aGAqAAeRT6.html|Ut1Uv8aGAqAAeRT5" id="optionUt1Uv8aGAqAAeRT5">System : Activity Partition</option>
+<option value="shape|544.0|715.0|20.0|20.0|ActivityFinalNode__0E0v8aGAqAAeRV4.html|ActivityFinalNode__0E0v8aGAqAAeRV4.html|_0E0v8aGAqAAeRV3" id="option_0E0v8aGAqAAeRV3">Unnamed Activity Final Node : Activity Final Node</option>
+</select>				</td>
+			</tr>
+		</table>
+		<table border="0" cellpadding="0" width="100%" cellspacing="0" style="position: relative; top: 24;">
+			<tr>
+				<td>
+					<img id="diagram" src="../images/Ustawianie_przypomnien.png" usemap="#diagram_map" class="Image" width="789" height="788"/>
+					<map name="diagram_map">
+<area imageId="diagram" coords="566.0, 75.0, 566.0, 78.0, 213.0, 78.0, 213.0, 92.0, 566.0, 92.0, 566.0, 126.0, 580.0, 126.0, 580.0, 92.0, 583.0, 92.0, 583.0, 78.0, 580.0, 78.0, 580.0, 75.0" coords2="566.0, 75.0, 566.0, 78.0, 213.0, 78.0, 213.0, 92.0, 566.0, 92.0, 566.0, 126.0, 580.0, 126.0, 580.0, 92.0, 583.0, 92.0, 583.0, 78.0, 580.0, 78.0, 580.0, 75.0" shape="poly" alt=":Control Flow" id="areadiagram_map_FwJUv8aGAqAAeRSP" href="ControlFlow_ZwJUv8aGAqAAeRSO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="566.0, 206.0, 566.0, 274.0, 317.0, 274.0, 317.0, 288.0, 566.0, 288.0, 566.0, 291.0, 580.0, 291.0, 580.0, 288.0, 583.0, 288.0, 583.0, 274.0, 580.0, 274.0, 580.0, 206.0" coords2="566.0, 206.0, 566.0, 274.0, 317.0, 274.0, 317.0, 288.0, 566.0, 288.0, 566.0, 291.0, 580.0, 291.0, 580.0, 288.0, 583.0, 288.0, 583.0, 274.0, 580.0, 274.0, 580.0, 206.0" shape="poly" alt=":Control Flow" id="areadiagram_map_lvpUv8aGAqAAeRSs" href="ControlFlow_5vpUv8aGAqAAeRSr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="568.0, 311.0, 568.0, 314.0, 317.0, 314.0, 317.0, 328.0, 568.0, 328.0, 568.0, 358.0, 582.0, 358.0, 582.0, 328.0, 585.0, 328.0, 585.0, 314.0, 582.0, 314.0, 582.0, 311.0" coords2="568.0, 311.0, 568.0, 314.0, 317.0, 314.0, 317.0, 328.0, 568.0, 328.0, 568.0, 358.0, 582.0, 358.0, 582.0, 328.0, 585.0, 328.0, 585.0, 314.0, 582.0, 314.0, 582.0, 311.0" shape="poly" alt=":Control Flow" id="areadiagram_map_xzZUv8aGAqAAeRS7" href="ControlFlow_BzZUv8aGAqAAeRS6.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="211.0, 528.0, 211.0, 613.0, 225.0, 613.0, 225.0, 528.0" coords2="211.0, 528.0, 211.0, 613.0, 225.0, 613.0, 225.0, 528.0" shape="poly" alt=":Control Flow" id="areadiagram_map_BVFUv8aGAqAAeRTZ" href="ControlFlow_uVFUv8aGAqAAeRTY.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="290.0, 625.0, 290.0, 639.0, 443.0, 639.0, 443.0, 625.0" coords2="290.0, 625.0, 290.0, 639.0, 443.0, 639.0, 443.0, 625.0" shape="poly" alt=":Control Flow" id="areadiagram_map_fmlUv8aGAqAAeRTo" href="ControlFlow_3mlUv8aGAqAAeRTn.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="192.0, 380.0, 192.0, 383.0, 189.0, 383.0, 189.0, 397.0, 192.0, 397.0, 192.0, 448.0, 206.0, 448.0, 206.0, 397.0, 489.0, 397.0, 489.0, 383.0, 206.0, 383.0, 206.0, 380.0" coords2="192.0, 380.0, 192.0, 383.0, 189.0, 383.0, 189.0, 397.0, 192.0, 397.0, 192.0, 448.0, 206.0, 448.0, 206.0, 397.0, 489.0, 397.0, 489.0, 383.0, 206.0, 383.0, 206.0, 380.0" shape="poly" alt=":Control Flow" id="areadiagram_map_duw0v8aGAqAAeRVo" href="ControlFlow_Vuw0v8aGAqAAeRVn.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="547.0, 674.0, 547.0, 715.0, 561.0, 715.0, 561.0, 674.0" coords2="547.0, 674.0, 547.0, 715.0, 561.0, 715.0, 561.0, 674.0" shape="poly" alt=":Control Flow" id="areadiagram_map_Msk0v8aGAqAAeRWI" href="ControlFlow_ksk0v8aGAqAAeRWH.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="544, 715, 564, 735" coords2="544, 715, 564, 735" shape="rect" alt=":Activity Final Node" id="areadiagram_map__0E0v8aGAqAAeRV3" href="ActivityFinalNode__0E0v8aGAqAAeRV4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="373, 6, 781, 21" coords2="373, 6, 781, 21" shape="rect" alt="System:Activity Partition" id="areadiagram_map_Ut1Uv8aGAqAAeRT5" href="ActivityPartition_Ut1Uv8aGAqAAeRT6.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="145, 613, 290, 693" coords2="145, 613, 290, 693" shape="rect" alt="Zapisz przypomnienie:Activity" id="areadiagram_map_YjWUv8aGAqAAeRRf" href="Activity_YjWUv8aGAqAAeRRg.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="6, 6, 373, 21" coords2="6, 6, 373, 21" shape="rect" alt="Wspolpracownik&emsp;:Activity Partition" id="areadiagram_map_GN1Uv8aGAqAAeRTz" href="ActivityPartition_mN1Uv8aGAqAAeRT0.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="443, 594, 743, 674" coords2="443, 594, 743, 674" shape="rect" alt="Wyswietl przupomnienie w kalendarzu i na liscie zadan:Activity" id="areadiagram_map_FRuUv8aGAqAAeRRq" href="Activity_FRuUv8aGAqAAeRRr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="500, 126, 631, 206" coords2="500, 126, 631, 206" shape="rect" alt="Wyswietl kalendarz:Activity" id="areadiagram_map_MLPkv8aGAqAAeRP." href="Activity_MLPkv8aGAqAAeRP_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="64, 486, 134, 516" coords2="64, 486, 134, 516" shape="rect" alt="Status:Activity Parameter Node" id="areadiagram_map_1ByUv8aGAqAAeRQ_" href="ActivityParameterNode_1ByUv8aGAqAAeRRA.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="285, 475, 355, 505" coords2="285, 475, 355, 505" shape="rect" alt="Godzina:Activity Parameter Node" id="areadiagram_map_vB8Uv8aGAqAAeRQz" href="ActivityParameterNode_vB8Uv8aGAqAAeRQ0.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="140, 513, 210, 543" coords2="140, 513, 210, 543" shape="rect" alt="Data:Activity Parameter Node" id="areadiagram_map_99sUv8aGAqAAeRQq" href="ActivityParameterNode_99sUv8aGAqAAeRQr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="231, 513, 301, 543" coords2="231, 513, 301, 543" shape="rect" alt="Nazwa:Activity Parameter Node" id="areadiagram_map_PJ0Uv8aGAqAAeRQh" href="ActivityParameterNode_PJ0Uv8aGAqAAeRQi.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="99, 448, 320, 528" coords2="99, 448, 320, 528" shape="rect" alt="Wprowadz szczegoly przypomnienia:Activity" id="areadiagram_map_iloUv8aGAqAAeRQW" href="Activity_iloUv8aGAqAAeRQX.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="489, 358, 761, 438" coords2="489, 358, 761, 438" shape="rect" alt="Wyswietl formularz tworzenia przypomninenia:Activity" id="areadiagram_map_LGQUv8aGAqAAeRQO" href="Activity_LGQUv8aGAqAAeRQP.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="87, 250, 317, 330" coords2="87, 250, 317, 330" shape="rect" alt="Kliknij przycisk utworz przypomnienie:Activity" id="areadiagram_map_3Q_kv8aGAqAAeRQG" href="Activity_3Q_kv8aGAqAAeRQH.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="91, 64, 213, 144" coords2="91, 64, 213, 144" shape="rect" alt="Otworz kalendarz:Activity" id="areadiagram_map_SQXkv8aGAqAAeRP4" href="Activity_SQXkv8aGAqAAeRP5.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+<area imageId="diagram" coords="6, 6, 781, 780" coords2="6, 6, 781, 780" shape="rect" alt="Swimlane6:Swimlane" id="areadiagram_map_311Uv8aGAqAAeRTv" href="ActivitySwimlane2_P11Uv8aGAqAAeRTw.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()" onmousedown="clearSpotLight();"/>
+</map>
+				</td>
+			</tr>
+		</table>
+		<p>
+		</p>
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Description</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_SQXkv8aGAqAAeRP5.html" class="ItemLink">Otworz kalendarz : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_MLPkv8aGAqAAeRP_.html" class="ItemLink">Wyswietl kalendarz : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_3Q_kv8aGAqAAeRQH.html" class="ItemLink">Kliknij przycisk utworz przypomnienie : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_LGQUv8aGAqAAeRQP.html" class="ItemLink">Wyswietl formularz tworzenia przypomninenia : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_iloUv8aGAqAAeRQX.html" class="ItemLink">Wprowadz szczegoly przypomnienia : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityParameterNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityParameterNode.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityParameterNode_PJ0Uv8aGAqAAeRQi.html" class="ItemLink">Nazwa : Activity Parameter Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityParameterNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityParameterNode.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityParameterNode_99sUv8aGAqAAeRQr.html" class="ItemLink">Data : Activity Parameter Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityParameterNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityParameterNode.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityParameterNode_vB8Uv8aGAqAAeRQ0.html" class="ItemLink">Godzina : Activity Parameter Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityParameterNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityParameterNode.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityParameterNode_1ByUv8aGAqAAeRRA.html" class="ItemLink">Status : Activity Parameter Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_YjWUv8aGAqAAeRRg.html" class="ItemLink">Zapisz przypomnienie : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Activity.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Activity.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="Activity_FRuUv8aGAqAAeRRr.html" class="ItemLink">Wyswietl przupomnienie w kalendarzu i na liscie zadan : Activity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityVerticalSwimlane.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityVerticalSwimlane.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivitySwimlane2_P11Uv8aGAqAAeRTw.html" class="ItemLink">Swimlane6 : Swimlane</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityPartition.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityPartition.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityPartition_mN1Uv8aGAqAAeRT0.html" class="ItemLink">Wspolpracownik&emsp; : Activity Partition</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityPartition.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityPartition.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityPartition_Ut1Uv8aGAqAAeRT6.html" class="ItemLink">System : Activity Partition</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityFinial.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityFinial.png'); background-repeat: no-repeat;">
+					</div>
+					&nbsp; <a href="ActivityFinalNode__0E0v8aGAqAAeRV4.html" class="ItemLink">N/A : Activity Final Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td style="padding: 5px 0">
+<span class="TableContent Documentation"></span>			</td>
+		</tr>
+	</table>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table border="0" cellpadding="0" width="100%" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		Projekt_IO	</div>
+</body>
+</html>
